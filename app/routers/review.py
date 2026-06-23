@@ -23,7 +23,7 @@ def verify_api_key(authorization: str = Header(default="")):
 def create_review(payload: ReviewRequest, db: Session = Depends(get_db),
                    _=Depends(verify_api_key)):
     if settings.ai_mode == "real":
-        from app.services.real_ai_service import run_real_review
+        from app.services.real_ai_services import run_real_review
         raw_findings = run_real_review(payload.files, payload.policy)
     else:
         raw_findings = run_mock_review(payload.files, payload.policy)
@@ -41,7 +41,7 @@ def create_review(payload: ReviewRequest, db: Session = Depends(get_db),
     db.add(record)
     db.commit()
     db.refresh(record)
-
+    print(...)
     return ReviewResponse(
         id=record.id,
         policy=record.policy,
