@@ -8,7 +8,7 @@ results to SQLite. Serves history to [ai-pr-review-demo-frontend](https://github
 ## Run locally
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 uvicorn app.main:app --reload
 ```
 
