@@ -1,0 +1,13 @@
+name: PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  review:
+    uses: ShwetaKadam-Git/ai-pr-review-platform/.github/workflows/reusable-pr-review.yml@main
+    with:
+      policy: default
+    secrets:
+      github_token: ${{ secrets.GITHUB_TOKEN }}

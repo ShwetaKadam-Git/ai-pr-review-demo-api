@@ -1,0 +1,24 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from app.db.database import Base, engine
+from app.routers import review, history
+
+Base.metadata.create_all(bind=engine)
+
+app = FastAPI(title="AI PR Review Demo API", version="1.0.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(review.router)
+app.include_router(history.router)
+
+
+@app.get("/")
+def health():
+    return {"status": "ok", "service": "ai-pr-review-demo-api"}
